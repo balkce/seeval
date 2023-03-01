@@ -1,0 +1,37 @@
+# #################################
+# Only parameters used to create dataset
+#
+# #################################
+
+# Seed needs to be set at top of yaml, before objects with parameters are made
+seed: 4234
+__set_seed: !!python/object/apply:torch.manual_seed [!ref <seed>]
+
+data_folder: ./librispeech
+output_folder: !ref <data_folder>/<seed>
+rir_folder: !ref <data_folder>
+
+# Path where data manifest files will be stored
+# The data manifest files are created by the data preparation script.
+train_annotation: train.json
+valid_annotation: valid.json
+test_annotation: test.json
+
+# In case you only want to download and NOT add noise/reverb/babble
+only_download: True
+
+# Added noise and reverb come from OpenRIR dataset, automatically
+# downloaded and prepared with this Environmental Corruption class.
+# The babble is generated from other utterances in each batch.
+reverb_csvs: {large: reverb_large.csv}
+reverb_dilation_low: 0
+reverb_dilation_high: 3.0
+reverb_dilation_step: 1.0
+noise_snr_low: -10 #0
+noise_snr_high: 30  #15
+noise_snr_step: 5 #0.5
+babble_speaker_count: 3 #3 #number of interences
+babble_snr_low: -10
+babble_snr_high: 30 # 15
+babble_snr_step: 5
+
