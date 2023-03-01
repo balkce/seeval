@@ -1,19 +1,22 @@
-# seeval
-Speech Enhancement Evaluation
+# Speech Enhancement Evaluation
 
 ## Requirements
-pip install json
-pip install speechbrain
-pip install denoiser
-pip install mireval
+```
+pip install json speechbrain denoiser mireval
+```
 
-# Corpus Creation
+## Corpus Creation
 
-Change directory to: corpus
+Change directory to: 
+```
+cd corpus
+```
 
 And run:
 
+```
 python mini_librispeech_prepare-script.py mini_librispeech_prepare-script.yaml
+```
 
 This will:
 - Download the LibriSpeech corpus, the RIR and Noise datasets
@@ -21,34 +24,43 @@ This will:
 - Create a subfolder named as the seed in which the evaluation corpus will be created
 - Create the evaluation corpus
 
-All of this will be created under the path: corpus/librispeech
+All of this will be created under the path: _corpus/librispeech_
 
-You're welcome to change this in mini_librispeech_prepare-script.yaml by changing the data_folder to a path you're comfortable with. However, you should also change this path correspondingly in the paths inside the file corpus/reverb_large.csv.
+You're welcome to change this in _mini_librispeech_prepare-script.yaml_ by changing the _data_folder_ field. However, you should also change this  accordingly in the paths inside the file _corpus/reverb_large.csv_
 
-# Running the Evaluation
+## Running the Evaluation
 
-First, create the manifest of the evaluations corpus (dataset_wavs.txt), by running:
+First, create the manifest of the evaluations corpus (_dataset_wavs.txt_), by running:
 
-python create_dataset_wavs.py corpus_path
+```
+python create_dataset_wavs.py CORPUSPATH
+```
 
-where corpus_path is the path to the evaluation corpus, such as: ./corpus/librispeech/4234
+where _CORPUSPATH_ is the path to the evaluation corpus, such as: _./corpus/librispeech/4234_
 
-## Running on a sub-set of the evaluation corpus
+You can either run the evaluation on a sub-set of the evaluation corpus, or on the whole evaluation corpus.
 
-Create the sub-set (dataset_wavs_subset.txt):
+### Option 1: Running on a sub-set of the evaluation corpus
 
-python create_dataset_wavs_subset.py subset_len valid_json_path
+Create the sub-set (_dataset_wavs_subset.txt_):
+
+```
+python create_dataset_wavs_subset.py SUBSETLEN VALIDJSONPATH
+```
 
 where:
-- subset_len is the length of the created sub-set, such as: 100
-- valid_json_path is the path to the to the valid.json manifest file of LibriSpeech, such as: ./corpus/valid.json
+- _SUBSETLEN_ is the length of the created sub-set, such as: _100_
+- _VALIDJSONPATH_ is the path to the to the valid.json manifest file of LibriSpeech, such as: _./corpus/valid.json_
 
 And run:
 
+```
 python SEEval_script.py
+```
 
-## Running on the whole evaluation corpus
+### Option 2: Running on the whole evaluation corpus
 Just run:
 
+```
 python SEEval_script.py do_full_run
-
+```
